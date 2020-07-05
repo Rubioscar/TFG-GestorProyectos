@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "issue_links",
+  "info": {
+    "name": "IssueLink"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "padre": {
+      "model": "issue"
+    },
+    "destino": {
+      "model": "issue"
+    },
+    "link_type": {
+      "model": "link-type"
+    }
+  }
+}

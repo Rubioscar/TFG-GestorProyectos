@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "issues",
+  "info": {
+    "name": "Issue"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "richtext"
+    },
+    "creador": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "project": {
+      "via": "issues",
+      "model": "project"
+    },
+    "asignado": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "issue_type": {
+      "model": "issue-type"
+    },
+    "issue_status": {
+      "model": "issue-status"
+    },
+    "tag": {
+      "type": "string"
+    },
+    "archivos": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    }
+  }
+}
