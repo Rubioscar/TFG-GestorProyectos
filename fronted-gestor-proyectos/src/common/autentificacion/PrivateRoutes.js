@@ -9,9 +9,10 @@ const PrivateRoute = ({ component: Component, ...others }) => {
   return (
     <UserContext.Consumer>
       { ({ signedIn }) => {
-        return <Route
-          {...others}
-          render={(props) =>
+        return (
+          <Route
+            {...others}
+            render={(props) =>
             // Renderizamos el componente con sus propiedades solo si el
             // usuario está identificado
             signedIn ? (
@@ -26,9 +27,9 @@ const PrivateRoute = ({ component: Component, ...others }) => {
                   }
                 }}
               />
-            )
-          }
-        />
+            )}
+          />
+)
       }}
     </UserContext.Consumer>
   );

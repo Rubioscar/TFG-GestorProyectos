@@ -1,5 +1,4 @@
 /* eslint-disable react/forbid-prop-types */
-import PropTypes from "prop-types";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import InputLabel from "./inputLabel";
 
@@ -16,7 +15,8 @@ const SimpleInput = React.memo(
     allowIncorrectValues,
     classFieldName,
     classInputName,
-    name
+    name,
+    placeholder
   }) => {
     const propValue = value === null ? "" : value;
     const [lastValue, setLastValue] = useState(propValue);
@@ -63,6 +63,7 @@ const SimpleInput = React.memo(
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...inputElementProps}
             disabled={readOnly}
+            placeholder={placeholder}
             name={name}
           />
         </span>
