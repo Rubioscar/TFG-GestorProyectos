@@ -8,14 +8,14 @@ import UserContext from './context/UserContext';
 const PrivateRoute = ({ component: Component, ...others }) => {
   return (
     <UserContext.Consumer>
-      { ({ signedIn }) => {
+      { (value) => {
         return (
           <Route
             {...others}
             render={(props) =>
             // Renderizamos el componente con sus propiedades solo si el
             // usuario está identificado
-            signedIn ? (
+            value.signedIn ? (
               <Component {...props} />
             ) : (
               // Redirigimos a /login en otro caso

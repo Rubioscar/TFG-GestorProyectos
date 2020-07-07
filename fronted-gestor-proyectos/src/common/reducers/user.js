@@ -1,4 +1,4 @@
-import singInAction from '../actions/user';
+import { singInAction, changePass }  from '../actions/user';
 
 // Estado inicial
 const initialState = {
@@ -23,6 +23,25 @@ const singInReducer = (state = initialState, action) => {
           error: false
         }
       case String(singInAction.rejected):
+        return {
+          ...state,
+          isLoading: false,
+          error: true
+        }
+      case String(changePass.pending):
+        return {
+          ...state,
+          isLoading: true,
+          error: false
+        };
+      case String(changePass.fulfilled):
+        return {
+          ...state,
+          isLoading: false,
+          user: action.payload,
+          error: false
+        }
+      case String(changePass.rejected):
         return {
           ...state,
           isLoading: false,
