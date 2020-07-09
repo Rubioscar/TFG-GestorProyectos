@@ -29,8 +29,8 @@
       "via": "project"
     },
     "issues": {
-      "collection": "issue",
-      "via": "project"
+      "via": "project",
+      "collection": "issue"
     },
     "tags": {
       "type": "json"

@@ -643,6 +643,15 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "estimacion": {
+                  "type": "integer"
+                },
+                "prioridad": {
+                  "type": "string"
+                },
+                "descripcionCorta": {
+                  "type": "string"
                 }
               }
             }

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "07/05/2020 7:23:47 PM"
+    "x-generation-date": "07/09/2020 4:01:44 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -5994,6 +5994,15 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "estimacion": {
+                "type": "integer"
+              },
+              "prioridad": {
+                "type": "string"
+              },
+              "descripcionCorta": {
+                "type": "string"
               }
             }
           },
@@ -6034,6 +6043,15 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "estimacion": {
+                "type": "integer"
+              },
+              "prioridad": {
+                "type": "string"
+              },
+              "descripcionCorta": {
+                "type": "string"
               }
             }
           },
@@ -6344,6 +6362,20 @@
                 }
               }
             }
+          },
+          "estimacion": {
+            "type": "integer"
+          },
+          "prioridad": {
+            "type": "string",
+            "enum": [
+              "Alta",
+              "Media",
+              "Baja"
+            ]
+          },
+          "descripcionCorta": {
+            "type": "string"
           }
         }
       },
@@ -6371,6 +6403,20 @@
             "type": "string"
           },
           "tag": {
+            "type": "string"
+          },
+          "estimacion": {
+            "type": "integer"
+          },
+          "prioridad": {
+            "type": "string",
+            "enum": [
+              "Alta",
+              "Media",
+              "Baja"
+            ]
+          },
+          "descripcionCorta": {
             "type": "string"
           }
         }
@@ -6524,6 +6570,15 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "estimacion": {
+                  "type": "integer"
+                },
+                "prioridad": {
+                  "type": "string"
+                },
+                "descripcionCorta": {
+                  "type": "string"
                 }
               }
             }

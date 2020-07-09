@@ -20,8 +20,8 @@
       "model": "user"
     },
     "project": {
-      "via": "issues",
-      "model": "project"
+      "model": "project",
+      "via": "issues"
     },
     "asignado": {
       "plugin": "users-permissions",
@@ -46,6 +46,20 @@
       ],
       "plugin": "upload",
       "required": false
+    },
+    "estimacion": {
+      "type": "integer"
+    },
+    "prioridad": {
+      "type": "enumeration",
+      "enum": [
+        "Alta",
+        "Media",
+        "Baja"
+      ]
+    },
+    "descripcionCorta": {
+      "type": "string"
     }
   }
 }
