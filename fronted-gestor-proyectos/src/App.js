@@ -1,15 +1,13 @@
 import React, {useState } from "react";
 import "./App.css";
-import { Provider } from "react-redux";
-import { Route, Redirect, NavLink, Switch } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import UserContext from './common/autentificacion/context/UserContext';
 import PrivateRoute from './common/autentificacion/PrivateRoutes';
 import Login from "./common/pages/login";
 import Home from "./userWorkspace/pages/home";
-import store from "./store";
 
 function App() {
-  const [signedIn, updateUser] = useState(false);
+  const [signedIn, updateUser] = useState(JSON.parse(localStorage.getItem("userData")) ? true : false);
 
   return (
     <UserContext.Provider value={{signedIn, updateUser}}>

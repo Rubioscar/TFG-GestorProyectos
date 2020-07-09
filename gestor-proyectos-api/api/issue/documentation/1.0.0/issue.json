@@ -753,6 +753,20 @@
                 }
               }
             }
+          },
+          "estimacion": {
+            "type": "integer"
+          },
+          "prioridad": {
+            "type": "string",
+            "enum": [
+              "Alta",
+              "Media",
+              "Baja"
+            ]
+          },
+          "descripcionCorta": {
+            "type": "string"
           }
         }
       },
@@ -780,6 +794,20 @@
             "type": "string"
           },
           "tag": {
+            "type": "string"
+          },
+          "estimacion": {
+            "type": "integer"
+          },
+          "prioridad": {
+            "type": "string",
+            "enum": [
+              "Alta",
+              "Media",
+              "Baja"
+            ]
+          },
+          "descripcionCorta": {
             "type": "string"
           }
         }

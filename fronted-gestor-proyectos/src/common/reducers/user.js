@@ -47,6 +47,13 @@ const singInReducer = (state = initialState, action) => {
           isLoading: false,
           error: true
         }
+      case "SET_USER":
+        return {
+          ...state,
+          isLoading: false,
+          user: action.payload,
+          error: false
+        }
       default:
         return state;
     }
