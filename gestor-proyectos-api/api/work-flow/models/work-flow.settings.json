@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "work_flows",
+  "info": {
+    "name": "WorkFlow"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "Columnas": {
+      "type": "integer"
+    },
+    "issue_statuses": {
+      "collection": "issue-status"
+    }
+  }
+}

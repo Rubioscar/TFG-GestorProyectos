@@ -559,6 +559,9 @@
               },
               "tags": {
                 "type": "object"
+              },
+              "work_flow": {
+                "type": "string"
               }
             }
           },

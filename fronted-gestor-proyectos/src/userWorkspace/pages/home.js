@@ -9,6 +9,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from "react-bootstrap/NavDropdown";
 import ListGroup from "react-bootstrap/ListGroup";
 import { findOneProject }  from '../actions/project';
+import { getIssuesStatus }  from '../actions/issue';
 // import history from "../helper/history";
 import "../assets/scss/index.scss";
 import setUser from "../actions/user";
@@ -22,6 +23,7 @@ const Home = ({match}) => {
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("userData"));
     dispatch(setUser(data));
+    dispatch(getIssuesStatus());
   }, []);
 
   const selectProject = async (id) => {

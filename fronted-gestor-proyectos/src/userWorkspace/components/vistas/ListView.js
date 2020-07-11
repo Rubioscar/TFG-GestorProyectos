@@ -5,7 +5,7 @@ import { getIssues }  from '../../actions/issue';
 
 const ListView = () => {
     const dispatch = useDispatch();
-    const issues = useSelector(state => state.issue.issues);
+    const issues = useSelector(state => state.issue.issues.issues);
     const project = useSelector(state => state.project.projects)
     const user = useSelector(state => state.userData.user)
     const [fun, setFun] = useState(false);

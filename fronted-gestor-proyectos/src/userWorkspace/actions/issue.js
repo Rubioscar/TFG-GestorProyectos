@@ -6,3 +6,8 @@ export const getIssues = createAsyncAction('GET_ISSUES', async (filter) => {
   return res;
 });
 
+export const getIssuesStatus = createAsyncAction('GET_ISSUES_STATUS', async (filter) => {
+  const res = await issue.status();
+  return res;
+});
+

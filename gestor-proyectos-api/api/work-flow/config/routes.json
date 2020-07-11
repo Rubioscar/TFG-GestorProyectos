@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/work-flows",
+      "handler": "work-flow.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/work-flows/count",
+      "handler": "work-flow.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/work-flows/:id",
+      "handler": "work-flow.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/work-flows",
+      "handler": "work-flow.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/work-flows/:id",
+      "handler": "work-flow.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/work-flows/:id",
+      "handler": "work-flow.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

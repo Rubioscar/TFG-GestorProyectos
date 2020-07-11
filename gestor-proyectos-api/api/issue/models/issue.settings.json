@@ -20,8 +20,8 @@
       "model": "user"
     },
     "project": {
-      "model": "project",
-      "via": "issues"
+      "via": "issues",
+      "model": "project"
     },
     "asignado": {
       "plugin": "users-permissions",
