@@ -54,8 +54,8 @@
       "configurable": false
     },
     "projects": {
-      "collection": "project",
-      "via": "users"
+      "via": "users",
+      "collection": "project"
     },
     "grupos": {
       "collection": "grupo",

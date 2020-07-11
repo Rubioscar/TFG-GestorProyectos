@@ -19,9 +19,9 @@
       "type": "boolean"
     },
     "users": {
-      "via": "projects",
       "plugin": "users-permissions",
       "collection": "user",
+      "via": "projects",
       "dominant": true
     },
     "admins": {
@@ -29,11 +29,14 @@
       "via": "project"
     },
     "issues": {
-      "via": "project",
-      "collection": "issue"
+      "collection": "issue",
+      "via": "project"
     },
     "tags": {
       "type": "json"
+    },
+    "work_flow": {
+      "model": "work-flow"
     }
   }
 }

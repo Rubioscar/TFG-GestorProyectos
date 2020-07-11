@@ -658,6 +658,25 @@
           },
           "tags": {
             "type": "object"
+          },
+          "work_flow": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "Columnas": {
+                "type": "integer"
+              },
+              "issue_statuses": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -689,6 +708,9 @@
           },
           "tags": {
             "type": "object"
+          },
+          "work_flow": {
+            "type": "string"
           }
         }
       }

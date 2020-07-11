@@ -1,4 +1,5 @@
-import { getIssues }  from '../actions/issue';
+import { getIssues, getIssuesStatus }  from '../actions/issue';
+import { combineReducers } from "redux";
 
 // Estado inicial
 const initialState = {
@@ -25,7 +26,7 @@ const getIssuesReducer = (state = initialState, action) => {
       case String(getIssues.rejected):
         return {
           ...state,
-          projects: false,
+          isLoading: false,
           error: true
         }
       default:
@@ -33,4 +34,40 @@ const getIssuesReducer = (state = initialState, action) => {
     }
 }
 
-export default getIssuesReducer;
+const initialState2 = {
+  isLoading: false,
+  status: [],
+  error: false
+}
+
+const getStatusReducer = (state = initialState2, action) => {
+  switch(action.type) {
+    case String(getIssuesStatus.pending):
+      return {
+        ...state,
+        isLoading: true,
+        error: false
+      };
+    case String(getIssuesStatus.fulfilled):
+      return {
+        ...state,
+        isLoading: false,
+        status: action.payload,
+        error: false
+      }
+    case String(getIssuesStatus.rejected):
+      return {
+        ...state,
+        isLoading: false,
+        error: true
+      }
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  issues: getIssuesReducer,
+  status: getStatusReducer
+}
+);
