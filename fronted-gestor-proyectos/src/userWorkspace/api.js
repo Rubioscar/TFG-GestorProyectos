@@ -69,14 +69,31 @@ export const issue = {
       'Accept': 'application/json',
       'Content-Type': 'application/json;charset=UTF-8',
       Authorization: `Bearer ${user.jwt}`
-    },
+    }, 
   };
   
   return axios(options)
     .then(response => {
         return response.data;
     })
-  }
+  },
+  types: () => {
+    const user = JSON.parse(localStorage.getItem("userData"));
+    const options = {
+    url: `${apiPath}/issue-types`,
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Bearer ${user.jwt}`
+    }, 
+  };
+  
+  return axios(options)
+    .then(response => {
+        return response.data;
+    })
+  } 
 }
 
 export default project;

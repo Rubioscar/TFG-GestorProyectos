@@ -3,7 +3,7 @@ import { findOneProject }  from '../actions/project';
 // Estado inicial
 const initialState = {
     isLoading: false,
-    projects: [],
+    projects: {},
     error: false
 }
 
