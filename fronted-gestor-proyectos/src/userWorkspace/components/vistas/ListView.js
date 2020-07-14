@@ -33,7 +33,10 @@ const ListView = () => {
         }    
     } ,[project, user, fun, mejora, problem, task, me, dispatch])
 
-    const issueClick = (id) => history.push(`/home/viewIssue/${id}`)
+    const issueClick = (e,id) => {
+        e.preventDefault();
+        history.push(`/home/viewIssue/${id}`)
+    }
 
     return (
         <div className="main-header">
@@ -68,7 +71,7 @@ const ListView = () => {
                     <div key={index} className="issue">
                     <div className="row">
                         <i className="fas fa-arrow-up flecha"></i>
-                        <a href="" className="elemento" onClick={() => issueClick(issue.id)}>{issue.title}</a>
+                        <a href="" className="elemento" onClick={(e) => issueClick(e,issue.id)}>{issue.title}</a>
                         <span className="elemento">{issue.descripcionCorta}</span>
                     </div>
                     <div className="row end">

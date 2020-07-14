@@ -29,7 +29,7 @@ const ViewIssue = ({match}) => {
     if(Object.keys(project).length !== 0 && Object.keys(issue).length !== 0
         && project.id === issue.project.id)
         setVer(true);
-  }, [project])
+  }, [project, issue])
 
   return (
     <div>
