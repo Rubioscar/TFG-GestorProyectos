@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useCallback, useMemo } from "react";
 import InputLabel from "./inputLabel";
 
@@ -19,6 +18,7 @@ const SelectInput = ({
   value,
   readOnly
 }) => {
+  // console.log(data)
   const onInputChange = useCallback(
     event => {
       let {
@@ -57,20 +57,21 @@ const SelectInput = ({
       <select
         disabled={readOnly}
         onChange={onInputChange}
+        className="in"
         /* eslint-disable-next-line react/jsx-props-no-spreading */
         {...selectElementProps}
       >
         {!value && (
           <option key="selectNullValue" value={null}>
-            Select one...
+            Seleciona una...
           </option>
         )}
         {data.map(dataElement => (
           <option
-            key={dataElement[collectionValueField]}
-            value={dataElement[collectionValueField]}
+            key={dataElement.id}
+            value={dataElement.id}
           >
-            {dataElement[collectionLabelField]}
+            {dataElement.description}
           </option>
         ))}
       </select>

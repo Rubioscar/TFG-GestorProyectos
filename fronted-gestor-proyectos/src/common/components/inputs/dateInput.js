@@ -1,6 +1,4 @@
-import { transformDateToTypes } from "@/common/utils/dates";
 import moment from "moment";
-import PropTypes from "prop-types";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -8,6 +6,16 @@ import InputLabel from "./inputLabel";
 
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+
+const transformDateToTypes = ({ utcDate }, date) => {
+  if (utcDate) {
+    return moment(date)
+      .utcOffset(0)
+      .add(moment().utcOffset(), "minutes")
+      .format();
+  }
+  return date;
+};
 
 const DateInput = ({
   inputProps,
@@ -45,10 +53,10 @@ const DateInput = ({
   }, [uncontrolled, inputValue, value]);
 
   let inputElement = (
-    <span className={`field ${classFieldName}`}>
+    <span className={`field`}>
       <span className="control">
         <DatePicker
-          className="input"
+          className={`input ${classFieldName}`}
           ref={inputRef}
           selected={dateValue}
           onChange={onInputChange}

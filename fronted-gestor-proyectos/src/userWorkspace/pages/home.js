@@ -4,12 +4,14 @@ import history from "../../common/helper/history";
 import PrivateRoute from '../../common/autentificacion/PrivateRoutes';
 import ListView from "../components/vistas/ListView";
 import TrelloView from "../components/vistas/TrelloView";
+import NewIssue from "../components/vistas/NewIssue";
+import ViewIssue from "../components/vistas/ViewIssue";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from "react-bootstrap/NavDropdown";
 import ListGroup from "react-bootstrap/ListGroup";
 import { findOneProject }  from '../actions/project';
-import { getIssuesStatus }  from '../actions/issue';
+import { getIssuesStatus, getIssuesTypes }  from '../actions/issue';
 // import history from "../helper/history";
 import "../assets/scss/index.scss";
 import setUser from "../actions/user";
@@ -24,6 +26,7 @@ const Home = ({match}) => {
     const data = JSON.parse(localStorage.getItem("userData"));
     dispatch(setUser(data));
     dispatch(getIssuesStatus());
+    dispatch(getIssuesTypes());
   }, []);
 
   const selectProject = async (id) => {
@@ -72,7 +75,13 @@ const Home = ({match}) => {
               &nbsp;
               Overview
             </ListGroup.Item>
-            <ListGroup.Item action className="color">Events</ListGroup.Item>
+            <ListGroup.Item action className="color" onClick={() => {
+              history.push(`${match.url}/newIssue`);
+            }}>
+            <i className="fas fa-plus-square"></i>
+              &nbsp;
+              New Issue
+            </ListGroup.Item>
             <ListGroup.Item action className="color">Profile</ListGroup.Item>
             <ListGroup.Item action className="color">Status</ListGroup.Item>
           </ListGroup>
@@ -81,6 +90,8 @@ const Home = ({match}) => {
         <div className="page-content-wrapper">     
           <PrivateRoute path={`${match.url}/trelloView`} component={TrelloView} />
           <PrivateRoute path={`${match.url}/listView`} component={ListView} />
+          <PrivateRoute path={`${match.url}/newIssue`} component={NewIssue} />
+          <PrivateRoute path={`${match.url}/viewIssue/:id`} component={ViewIssue} />
         </div>
       </div>
     </div>

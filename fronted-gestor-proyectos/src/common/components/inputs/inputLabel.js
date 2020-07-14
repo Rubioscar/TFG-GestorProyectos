@@ -1,7 +1,7 @@
 import React from "react";
 
 const InputLabel = ({ text, children }) => (
-  <label htmlFor="satCenServices" className="label">
+  <label htmlFor="" className="label">
     {text}
     {children}
   </label>

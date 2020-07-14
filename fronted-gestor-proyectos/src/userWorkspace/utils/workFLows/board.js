@@ -1,13 +1,3 @@
-class WorkFlow {
-    constructor(workflow) {
-        this.workflow = workflow;
-    }
-
-    doAction() {
-        this.workflow.doActionStrategy();
-    }
-}
-
 const normal = (issues) => {
     const board = {
         lanes: [
