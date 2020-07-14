@@ -15,3 +15,8 @@ export const getIssuesTypes = createAsyncAction('GET_ISSUES_TYPES', async () => 
   const res = await issue.types();
   return res;
 });
+
+export const getIssue = createAsyncAction('GET_ONE_ISSUE', async (id) => {
+  const res = await issue.findOne(id);
+  return res;
+});

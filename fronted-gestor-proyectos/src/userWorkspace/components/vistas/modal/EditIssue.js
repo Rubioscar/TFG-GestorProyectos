@@ -1,70 +1,71 @@
 import React, {useState, useEffect, useMemo} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SimpleInput from "../../../common/components/inputs/simpleInput"
-import SelectInput from "../../../common/components/inputs/selectInput";
-import {statusDisponibles} from "../../utils/workFLows/newIssue";
+import SimpleInput from "../../../../common/components/inputs/simpleInput"
+import SelectInput from "../../../../common/components/inputs/selectInput";
+import {statusDisponibles} from "../../../utils/workFLows/newIssue";
 import CKEditor from 'ckeditor4-react';
-import { files, issue } from "../../api";
+import { files, issue } from "../../../api";
 import Button from "react-bootstrap/Button";
-import Alert from 'react-bootstrap/Alert';
-import history from "../../../common/helper/history";
-import "../../assets/scss/index.scss";
-import apiPath from "../../../common/constants";
+import "../../../assets/scss/index.scss";
+import apiPath from "../../../../common/constants";
+import { getIssue }  from '../../../actions/issue';
 
-const NewIssue = ({match}) => {
+const EditIssue = ({match, data, onClose}) => {
   const dispatch = useDispatch();
-  const issues = useSelector(state => state.issue.issues.issues);
   const status = useSelector(state => state.issue.status.status);
   const types = useSelector(state => state.issue.types.types);
   const project = useSelector(state => state.project.projects)
   const userData = useSelector(state => state.userData.user.user)
-  const [title, setTitle] = useState("");
-  const [esti, setEsti] = useState("");
-  const [type, setType] = useState("");
-  const [statu, setStatu] = useState("");
-  const [user, setUser] = useState("");
-  const [corta, setCorta] = useState("");
-  const [descripcion, setDes] = useState("");
-  const [prioridad, setPrioridad] = useState("");
-  const [tag, setTag] = useState("");
   const [progres, setProgress] = useState(null);
-  const [file, setFile ] = useState([]);
-  const [error, setError ] = useState(false);
+  const [issueData, setIssueData ] = useState(null);
 
-  const onEditorChange = ( evt ) => {
-    setDes(evt.editor.getData());
+
+  useEffect(() => {
+    const datos = {
+        title: data.title,
+        descripcion: data.descripcion,
+        asignado: data.asignado.id,
+        issue_type: data.issue_type.id,
+        issue_status: data.issue_status.name,
+        tag: data.tag,
+        estimacion: data.estimacion,
+        prioridad: data.prioridad,
+        descripcionCorta: data.descripcionCorta,
+        archivos: data.archivos
+    }
+    setIssueData(datos);
+  }, []);
+
+const onEditorChange = ( evt ) => {
+    setIssueData({
+        ...issueData,
+        descripcion: evt.editor.getData()
+    });
 }
 
 const handleAttachFIle =  async e => {
     e.persist()
     // could do some validation for the attached file here
     const fichero = await files.save(e.target.files, setProgress);
-    setFile([...file, fichero[0]]);
+    setIssueData({
+        ...issueData,
+        archivos: [...issueData.archivos, fichero[0]]
+    });
     e.target.value = '' // to clear the current file
   }
 
- const saveIssue = async () => {
-     const data = {
-        title: title,
-        descripcion: descripcion,
-        creador: userData.id,
-        project: project.id,
-        asignado: user,
-        issue_type: type,
-        issue_status: status.find(e => e.name === statu).id,
-        tag: tag,
-        estimacion: esti,
-        prioridad: prioridad,
-        descripcionCorta: corta,
-        archivos: file.map(e => e.id)
+ const updateIssue = async () => {
+     const objeto = {
+        ...issueData,
+        issue_status: status.find(e => e.name === issueData.issue_status).id,
+        archivos: issueData.archivos.map(e => e.id)
      }
 
-     console.log(data);
-     const res = await issue.nuevo(data);
+     console.log(objeto);
+     const res = await issue.actualizar(data.id,objeto);
      if(res) {
-        history.push('/home/trelloView')
-     } else {
-        setError(true);
+        onClose();
+        dispatch(getIssue(data.id));
      }
  } 
 
@@ -109,26 +110,29 @@ const handleAttachFIle =  async e => {
 
   return (
     <div>
-        {Object.keys(project).length !== 0  && (
+        {issueData  && (
             <div className="main-form">
                 <div className="header">
                     <h2>Crear una nueva issue para {project.name}</h2>
                 </div>
-                {error && (
-                    <Alert variant='danger'>Error al crear issue</Alert>)
-                }
                 <span className="title">Detalles</span>
                 <div className="form">
                   <div className="row">
                     <SimpleInput
-                        value={title}
-                        onChange={setTitle}
+                        value={issueData.title}
+                        onChange={(valor) => setIssueData({
+                            ...issueData,
+                            title: valor
+                        })}
                         classInputName="in"
                         label="Titulo:"
                     />
                     <SimpleInput
-                    value={esti}
-                    onChange={setEsti}
+                    value={issueData.estimacion}
+                    onChange={(valor) => setIssueData({
+                        ...issueData,
+                        estimacion: valor
+                    })}
                     classInputName="in"
                     type="number"
                     label="Estimacion (Puntos): "
@@ -137,69 +141,87 @@ const handleAttachFIle =  async e => {
                   <div className="row">
                     <SelectInput
                         id="issueStatus"
-                        value={statu}
+                        value={issueData.issue_status}
                         label="Seleciona status:"
                         data={statusDisponibles(project.issue_status)}
                         className="in"
-                        onChange={setStatu}
+                        onChange={(valor) => setIssueData({
+                            ...issueData,
+                            issue_status: valor
+                        })}
                     />
                     <SelectInput
                         id="issue"
-                        value={type}
+                        value={issueData.issue_type}
                         label="Seleciona tipo:"
                         data={selectType}
                         className="in"
-                        onChange={setType}
+                        onChange={(valor) => setIssueData({
+                            ...issueData,
+                            issue_type: valor
+                        })}
                     />
                   </div>
                   <div className="row">
                     <SelectInput
                         id="issueStatus"
-                        value={user}
+                        value={issueData.asignado}
                         label="Asigna usuario"
                         data={selectUser}
                         className="in"
-                        onChange={setUser}
+                        onChange={(valor) => setIssueData({
+                            ...issueData,
+                            asignado: valor
+                        })}
                     />
                     <SelectInput
                         id="issue"
-                        value={tag}
+                        value={issueData.tag}
                         label="Seleciona Tag"
                         data={selectTags}
                         className="in"
-                        onChange={setTag}
+                        onChange={(valor) => setIssueData({
+                            ...issueData,
+                            tag: valor
+                        })}
                     />
                   </div>
                   <div className="row">
                     <SelectInput
                         id="issueStatus"
-                        value={prioridad}
+                        value={issueData.prioridad}
                         label="Seleccione prioridad"
                         data={selectPrioridad}
                         className="in"
-                        onChange={setPrioridad}
+                        onChange={(valor) => setIssueData({
+                            ...issueData,
+                            prioridad: valor
+                        })}
                     />
                   </div> 
                 </div>
                 <span className="title">Descripcion</span>
                 <div className="form">
                     <SimpleInput
-                        value={corta}
-                        onChange={setCorta}
+                        value={issueData.descripcionCorta}
+                        onChange={(valor) => setIssueData({
+                            ...issueData,
+                            descripcionCorta: valor
+                        })}
                         classInputName="text"
                         type="text"
                         label="Descripcion corta: "
                     />
                     <CKEditor
-                        data={descripcion}
+                        data={issueData.descripcion}
                         onChange={onEditorChange}
                         type="classic"
                     />
                 </div>
                 <span className="title">Archivos</span>
                 <div className="form">
-                    {file.length>0 && (
-                        file.map(e => (
+                    {issueData.archivos.length>0 && (
+                        issueData.archivos.map(e => (
                             <div>
                                 <span>
                                 <i className="fas fa-file"></i> {e.name}
@@ -212,7 +234,7 @@ const handleAttachFIle =  async e => {
                     <input type="file" onChange={handleAttachFIle} />
                 </div>
                 <div className="boton">
-                    <Button variant="info" onClick={() => saveIssue()}>Crear</Button>
+                    <Button variant="info" onClick={() => updateIssue()}>Actualizar</Button>
                 </div>
             </div>
         )}
@@ -220,4 +242,4 @@ const handleAttachFIle =  async e => {
   );
 };
 
-export default NewIssue;
+export default EditIssue;

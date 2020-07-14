@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import { getIssues }  from '../../actions/issue';
+import history from "../../../common/helper/history";
 
 const ListView = () => {
     const dispatch = useDispatch();
@@ -31,6 +32,8 @@ const ListView = () => {
             dispatch(getIssues(filter))
         }    
     } ,[project, user, fun, mejora, problem, task, me, dispatch])
+
+    const issueClick = (id) => history.push(`/home/viewIssue/${id}`)
 
     return (
         <div className="main-header">
@@ -65,7 +68,7 @@ const ListView = () => {
                     <div key={index} className="issue">
                     <div className="row">
                         <i className="fas fa-arrow-up flecha"></i>
-                        <a href="" className="elemento">{issue.title}</a>
+                        <a href="" className="elemento" onClick={() => issueClick(issue.id)}>{issue.title}</a>
                         <span className="elemento">{issue.descripcionCorta}</span>
                     </div>
                     <div className="row end">

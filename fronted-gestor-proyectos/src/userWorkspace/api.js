@@ -39,6 +39,44 @@ export const issue = {
         return response.data;
     })
   },
+  findOne: (id) => {
+    const user = JSON.parse(localStorage.getItem("userData"));
+    const options = {
+    url: `${apiPath}/issues/${id}`,
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Bearer ${user.jwt}`
+    },
+  };
+  
+  return axios(options)
+    .then(response => {
+        return response.data;
+    })
+  },
+  nuevo: (data) => {
+    const user = JSON.parse(localStorage.getItem("userData"));
+    const options = {
+      url: `${apiPath}/issues`,
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
+        Authorization: `Bearer ${user.jwt}`
+      },
+      data
+    };
+    
+    return axios(options)
+      .then(() => {
+          return true;
+      })
+      .catch(() => {
+          return false;
+      })
+  },
   actualizar: (issueId,data) => {
     const user = JSON.parse(localStorage.getItem("userData"));
     const options = {
@@ -94,6 +132,33 @@ export const issue = {
         return response.data;
     })
   } 
+}
+
+export const files = {
+  save: (files, setProgress) => {
+      const user = JSON.parse(localStorage.getItem("userData"));
+      const formPayload = new FormData()
+      formPayload.append('files', files[0])
+      const options = {
+        url: `${apiPath}/upload`,
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${user.jwt}`
+        },
+        data: formPayload,
+        onUploadProgress: progress => {
+          const { loaded, total } = progress
+
+          const percentageProgress = Math.floor((loaded / total) * 100)
+          setProgress(percentageProgress);
+        },
+      };
+        
+      return axios(options)
+        .then(response => {
+          return response.data;
+      })
+    }
 }
 
 export default project;

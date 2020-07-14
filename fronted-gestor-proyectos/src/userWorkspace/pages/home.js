@@ -5,6 +5,7 @@ import PrivateRoute from '../../common/autentificacion/PrivateRoutes';
 import ListView from "../components/vistas/ListView";
 import TrelloView from "../components/vistas/TrelloView";
 import NewIssue from "../components/vistas/NewIssue";
+import ViewIssue from "../components/vistas/ViewIssue";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -77,7 +78,7 @@ const Home = ({match}) => {
             <ListGroup.Item action className="color" onClick={() => {
               history.push(`${match.url}/newIssue`);
             }}>
-              <i className="fab fa-trello"></i>
+            <i className="fas fa-plus-square"></i>
               &nbsp;
               New Issue
             </ListGroup.Item>
@@ -90,6 +91,7 @@ const Home = ({match}) => {
           <PrivateRoute path={`${match.url}/trelloView`} component={TrelloView} />
           <PrivateRoute path={`${match.url}/listView`} component={ListView} />
           <PrivateRoute path={`${match.url}/newIssue`} component={NewIssue} />
+          <PrivateRoute path={`${match.url}/viewIssue/:id`} component={ViewIssue} />
         </div>
       </div>
     </div>

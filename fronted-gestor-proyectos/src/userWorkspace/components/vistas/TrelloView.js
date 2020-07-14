@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { getIssues }  from '../../actions/issue';
 import MyCard from "../tablero/MyCard";
 import { selectBoard } from "../../utils/workFLows/board";
+import history from "../../../common/helper/history";
 import { issue } from "../../api";
 
 const TrelloView = () => {
@@ -52,8 +53,9 @@ const TrelloView = () => {
     const cardMove = async (cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
         const statusData = status.find(e => e.name === targetLaneId );
         const res = await issue.actualizar(cardId, {issue_status: statusData.id});
-        console.log(res);
     };
+
+    const cardClicked = (cardId, metadata, laneId) => history.push(`/home/viewIssue/${cardId}`)
 
     return (
         <div className="main-header">
@@ -90,6 +92,7 @@ const TrelloView = () => {
                     components={components}
                     hideCardDeleteIcon={true}
                     handleDragEnd={cardMove}
+                    onCardClick={cardClicked}
                 />
             )}
         </div>
