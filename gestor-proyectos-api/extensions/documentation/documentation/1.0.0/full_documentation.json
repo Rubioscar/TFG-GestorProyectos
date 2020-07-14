@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "07/10/2020 11:32:25 PM"
+    "x-generation-date": "07/14/2020 11:54:08 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6367,46 +6367,6 @@
           "name": {
             "type": "string"
           },
-          "project": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "descripcion": {
-                "type": "string"
-              },
-              "cerrado": {
-                "type": "boolean"
-              },
-              "users": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "admins": {
-                "type": "string"
-              },
-              "issues": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "tags": {
-                "type": "object"
-              },
-              "work_flow": {
-                "type": "string"
-              }
-            }
-          },
           "users": {
             "type": "array",
             "items": {
@@ -6463,9 +6423,6 @@
       "NewGrupo": {
         "properties": {
           "name": {
-            "type": "string"
-          },
-          "project": {
             "type": "string"
           },
           "users": {
@@ -6726,16 +6683,13 @@
               "descripcion": {
                 "type": "string"
               },
-              "cerrado": {
-                "type": "boolean"
-              },
               "users": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
               },
-              "admins": {
+              "admin": {
                 "type": "string"
               },
               "issues": {
@@ -6749,6 +6703,12 @@
               },
               "work_flow": {
                 "type": "string"
+              },
+              "wiki": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -6985,9 +6945,6 @@
           "descripcion": {
             "type": "string"
           },
-          "cerrado": {
-            "type": "boolean"
-          },
           "users": {
             "type": "array",
             "items": {
@@ -7039,21 +6996,47 @@
               }
             }
           },
-          "admins": {
+          "admin": {
             "required": [
-              "id"
+              "id",
+              "username",
+              "email"
             ],
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "username": {
                 "type": "string"
               },
-              "project": {
+              "email": {
                 "type": "string"
               },
-              "users": {
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "projects": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "grupos": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -7134,6 +7117,70 @@
                 "type": "string"
               }
             }
+          },
+          "wiki": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "alternativeText": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                },
+                "formats": {
+                  "type": "object"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "previewUrl": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -7145,16 +7192,13 @@
           "descripcion": {
             "type": "string"
           },
-          "cerrado": {
-            "type": "boolean"
-          },
           "users": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "admins": {
+          "admin": {
             "type": "string"
           },
           "issues": {
@@ -7426,16 +7470,13 @@
                 "descripcion": {
                   "type": "string"
                 },
-                "cerrado": {
-                  "type": "boolean"
-                },
                 "users": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   }
                 },
-                "admins": {
+                "admin": {
                   "type": "string"
                 },
                 "issues": {
@@ -7449,6 +7490,12 @@
                 },
                 "work_flow": {
                   "type": "string"
+                },
+                "wiki": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -7464,9 +7511,6 @@
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "project": {
                   "type": "string"
                 },
                 "users": {

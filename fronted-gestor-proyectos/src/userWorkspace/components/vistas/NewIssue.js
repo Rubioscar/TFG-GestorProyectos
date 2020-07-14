@@ -139,7 +139,7 @@ const handleAttachFIle =  async e => {
                         id="issueStatus"
                         value={statu}
                         label="Seleciona status:"
-                        data={statusDisponibles(project.issue_status)}
+                        data={statusDisponibles(project.work_flow.name)}
                         className="in"
                         onChange={setStatu}
                     />

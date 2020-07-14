@@ -528,9 +528,6 @@
           "descripcion": {
             "type": "string"
           },
-          "cerrado": {
-            "type": "boolean"
-          },
           "users": {
             "type": "array",
             "items": {
@@ -582,21 +579,47 @@
               }
             }
           },
-          "admins": {
+          "admin": {
             "required": [
-              "id"
+              "id",
+              "username",
+              "email"
             ],
             "properties": {
               "id": {
                 "type": "string"
               },
-              "name": {
+              "username": {
                 "type": "string"
               },
-              "project": {
+              "email": {
                 "type": "string"
               },
-              "users": {
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "projects": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "grupos": {
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -677,6 +700,70 @@
                 "type": "string"
               }
             }
+          },
+          "wiki": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "alternativeText": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                },
+                "formats": {
+                  "type": "object"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "previewUrl": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -688,16 +775,13 @@
           "descripcion": {
             "type": "string"
           },
-          "cerrado": {
-            "type": "boolean"
-          },
           "users": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "admins": {
+          "admin": {
             "type": "string"
           },
           "issues": {

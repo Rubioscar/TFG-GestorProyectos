@@ -12,10 +12,6 @@
     "name": {
       "type": "string"
     },
-    "project": {
-      "via": "admins",
-      "model": "project"
-    },
     "users": {
       "via": "grupos",
       "plugin": "users-permissions",

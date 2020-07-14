@@ -525,46 +525,6 @@
           "name": {
             "type": "string"
           },
-          "project": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "descripcion": {
-                "type": "string"
-              },
-              "cerrado": {
-                "type": "boolean"
-              },
-              "users": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "admins": {
-                "type": "string"
-              },
-              "issues": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "tags": {
-                "type": "object"
-              },
-              "work_flow": {
-                "type": "string"
-              }
-            }
-          },
           "users": {
             "type": "array",
             "items": {
@@ -621,9 +581,6 @@
       "NewGrupo": {
         "properties": {
           "name": {
-            "type": "string"
-          },
-          "project": {
             "type": "string"
           },
           "users": {

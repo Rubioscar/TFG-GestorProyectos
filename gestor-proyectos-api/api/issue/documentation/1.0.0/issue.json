@@ -590,16 +590,13 @@
               "descripcion": {
                 "type": "string"
               },
-              "cerrado": {
-                "type": "boolean"
-              },
               "users": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
               },
-              "admins": {
+              "admin": {
                 "type": "string"
               },
               "issues": {
@@ -613,6 +610,12 @@
               },
               "work_flow": {
                 "type": "string"
+              },
+              "wiki": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },

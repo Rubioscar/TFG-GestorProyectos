@@ -18,7 +18,63 @@ const project = {
         .then(response => {
             return response.data;
         })
-    }
+    },
+    find: () => {
+      const user = JSON.parse(localStorage.getItem("userData"));
+      const options = {
+      url: `${apiPath}/projects`,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
+        Authorization: `Bearer ${user.jwt}`
+      },
+      params: {
+        'users.id': user.user.id
+      }
+    };
+    
+    return axios(options)
+      .then(response => {
+          return response.data;
+      })
+  },
+    nuevo: (data) => {
+      const user = JSON.parse(localStorage.getItem("userData"));
+      const options = {
+      url: `${apiPath}/projects`,
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
+        Authorization: `Bearer ${user.jwt}`
+      },
+      data
+    };
+    
+    return axios(options)
+      .then(() => {
+          return true;
+      })
+  },
+  actualizar: (data, id) => {
+    const user = JSON.parse(localStorage.getItem("userData"));
+    const options = {
+    url: `${apiPath}/projects/${id}`,
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Bearer ${user.jwt}`
+    },
+    data
+  };
+  
+  return axios(options)
+    .then(() => {
+        return true;
+    })
+}
 }
 
 export const issue = {
@@ -158,7 +214,64 @@ export const files = {
         .then(response => {
           return response.data;
       })
-    }
+    },
+  delete: (id) => {
+    const user = JSON.parse(localStorage.getItem("userData"));
+    const options = {
+    url: `${apiPath}/upload/files/${id}`,
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Bearer ${user.jwt}`
+    }, 
+  };
+  
+  return axios(options)
+    .then(() => {
+        return true;
+    })
+  }   
+}
+
+export const users = {
+  all: () => {
+      const user = JSON.parse(localStorage.getItem("userData"));
+      const options = {
+      url: `${apiPath}/users`,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
+        Authorization: `Bearer ${user.jwt}`
+      },
+    };
+    
+    return axios(options)
+      .then(response => {
+          return response.data;
+      })
+  }
+}
+
+export const workFlow = {
+  all: () => {
+      const user = JSON.parse(localStorage.getItem("userData"));
+      const options = {
+      url: `${apiPath}/work-flows`,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
+        Authorization: `Bearer ${user.jwt}`
+      },
+    };
+    
+    return axios(options)
+      .then(response => {
+          return response.data;
+      })
+  }
 }
 
 export default project;

@@ -15,18 +15,15 @@
     "descripcion": {
       "type": "richtext"
     },
-    "cerrado": {
-      "type": "boolean"
-    },
     "users": {
       "plugin": "users-permissions",
       "collection": "user",
       "via": "projects",
       "dominant": true
     },
-    "admins": {
-      "model": "grupo",
-      "via": "project"
+    "admin": {
+      "plugin": "users-permissions",
+      "model": "user"
     },
     "issues": {
       "collection": "issue",
@@ -37,6 +34,17 @@
     },
     "work_flow": {
       "model": "work-flow"
+    },
+    "wiki": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
     }
   }
 }

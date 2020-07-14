@@ -1,10 +1,10 @@
 const proyecto = () => {
     return [
-        { id:"To do", value:"To do"},
-        { id:"Ready", value:"Ready"},
-        { id:"In progress", value:"In progress"},
-        { id:"Done", value:"Done"},
-        { id:"Validated", value:"Validated"},
+        { id:"To do", description:"To do"},
+        { id:"Ready", description:"Ready"},
+        { id:"In progress", description:"In progress"},
+        { id:"Done", description:"Done"},
+        { id:"Validated", description:"Validated"},
     ]
 }
 
