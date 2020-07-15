@@ -1,10 +1,43 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useSelector } from "react-redux";
 import CKEditor from 'ckeditor4-react';
+import SelectInput from "../../../common/components/inputs/selectInput";
+import SimpleInput from "../../../common/components/inputs/simpleInput"
 import apiPath from "../../../common/constants";
 
-const ListView = () => {
+const WikiProject = () => {
     const project = useSelector(state => state.project.projects)
+    const [ficheros, setFicheros] = useState([])
+    const [tipo, setTipo] = useState("Todos")
+    const [name, setName] = useState("")
+
+
+    useEffect(() => {
+        if(Object.keys(project).length !== 0){
+            let wikis = project.wiki
+            if(tipo !== "Todos") {
+                wikis = wikis.filter(e => {
+                    if(e.ext === tipo)
+                        return e;
+                })
+            }
+            if(name !== "") {
+                wikis = wikis.filter(e => {
+                    if(e.name.includes(name))
+                        return e;
+                })
+            }
+            setFicheros(wikis);
+        }
+    }, [project,name,tipo])
+
+    const selectTipo = [
+        {id:".pdf", description: "PDF"},
+        {id:".docx", description: "DOCX"},
+        {id:".jpg", description: "JPG"},
+        {id:".png", description: "PNG"},
+        {id:"Todos", description: "Todos"}
+    ]
 
     return (
         <div>
@@ -22,11 +55,23 @@ const ListView = () => {
             <div className="filter">
                 <i className="fas fa-search"></i>
                 &nbsp;
-                <span className="negritaSin">Filtros:</span>
-                &nbsp;
+                <SelectInput
+                    id="tipo"
+                    value={tipo}
+                    label="Por tipo:"
+                    data={selectTipo}
+                    className="in"
+                    onChange={setTipo}
+                />
+                <SimpleInput
+                    value={name}
+                    onChange={setName}
+                    classInputName="in"
+                    label="Name:"
+                />
             </div>
             <div className="list">
-                {project.wiki.map((file, index) => (
+                {ficheros.map((file, index) => (
                 <div key={index} className="fichero">
                     <i className="fas fa-file-alt fa-3x imagen"></i>
                     <span className="linea">Nombre: {file.name}</span>
@@ -44,4 +89,4 @@ const ListView = () => {
     )
 }
 
-export default ListView;
+export default WikiProject;
