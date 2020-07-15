@@ -5,6 +5,7 @@ import PrivateRoute from '../../common/autentificacion/PrivateRoutes';
 import ListView from "../components/vistas/ListView";
 import TrelloView from "../components/vistas/TrelloView";
 import NewIssue from "../components/vistas/NewIssue";
+import WikiProject from "../components/vistas/WikiProject";
 import NewProject from "../components/vistas/modal/NewProject";
 import EditProject from "../components/vistas/modal/EditProject";
 import ViewIssue from "../components/vistas/ViewIssue";
@@ -105,12 +106,17 @@ const Home = ({match}) => {
             <ListGroup.Item action className="color" onClick={() => {
               history.push(`${match.url}/newIssue`);
             }}>
-            <i className="fas fa-plus-square"></i>
+              <i className="fas fa-plus-square"></i>
               &nbsp;
               New Issue
             </ListGroup.Item>
-            <ListGroup.Item action className="color">Profile</ListGroup.Item>
-            <ListGroup.Item action className="color">Status</ListGroup.Item>
+            <ListGroup.Item action className="color" onClick={() => {
+              history.push(`${match.url}/wiki`);
+            }}>
+              <i className="fas fa-book-open"></i>
+              &nbsp;
+              Wiki
+            </ListGroup.Item>
           </ListGroup>
         </div> ) : null
         }
@@ -119,6 +125,7 @@ const Home = ({match}) => {
           <PrivateRoute path={`${match.url}/listView`} component={ListView} />
           <PrivateRoute path={`${match.url}/newIssue`} component={NewIssue} />
           <PrivateRoute path={`${match.url}/viewIssue/:id`} component={ViewIssue} />
+          <PrivateRoute path={`${match.url}/wiki`} component={WikiProject} />
         </div>
       </div>
       {show && (

@@ -96,6 +96,25 @@
     flex-direction: column;
     border: 1px solid #ccc;
     padding: 20px 20px 10px 20px;
+    .fichero {
+      background: #fff;
+      border: 1px solid #ccc;
+      color: #333;
+      height: 60px;
+      cursor: move;
+      font-size: 14px;
+      line-height: 1.42857143;
+      margin-top: 10px;
+      position: relative;
+      flex-direction: row;
+      .imagen{
+        margin-top: 7px;
+        margin-left: 10px;
+      }
+      .linea{
+        margin-left: 10px;
+      }
+    }
     .issue {
       background: #fff;
       border: 1px solid #ccc;
