@@ -7,6 +7,7 @@ import MyCard from "../tablero/MyCard";
 import { selectBoard } from "../../utils/workFLows/board";
 import history from "../../../common/helper/history";
 import { issue } from "../../api";
+import { email } from "../../../common/api";
 
 const TrelloView = () => {
     const dispatch = useDispatch();
@@ -53,6 +54,17 @@ const TrelloView = () => {
     const cardMove = async (cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
         const statusData = status.find(e => e.name === targetLaneId );
         const res = await issue.actualizar(cardId, {issue_status: statusData.id});
+        if(res) {
+            const obj = {
+                title: cardDetails.objeto.title,
+                email: cardDetails.objeto.asignado.email,
+                project: cardDetails.objeto.project.name,
+                descripcion: cardDetails.objeto.descripcionCorta,
+                status: targetLaneId,
+                user: user.user.username
+            }
+            email.send(obj);
+        }
     };
 
     const cardClicked = (cardId, metadata, laneId) => history.push(`/home/viewIssue/${cardId}`)

@@ -1,13 +1,17 @@
 import React, {useState} from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SimpleInput from "../components/inputs/simpleInput";
 import UserContext from '../autentificacion/context/UserContext';
 import history from "../helper/history";
 import "../assets/scss/login.scss";
 import { singInAction } from '../actions/user';
 import Reset from "../components/login/resetPassword";
+import Alert from 'react-bootstrap/Alert';
+import Load from "../utils/Load";
 
 const Login = () => {
+  const isLoading = useSelector(state => state.userData.isLoading);
+  const error = useSelector(state => state.userData.error);
   const [user, setUser] = useState(null);
   const [password, setPassword] = useState(null);
   const [reset, setReset] = useState(null);
@@ -65,6 +69,12 @@ const Login = () => {
                 </p>
               </form>
           ) : <Reset /> }
+          { isLoading && (
+            <Load />
+          )}
+          { error && (
+            <Alert variant='danger'>Usuario o contrseña incorrectos</Alert>
+          )}
           </div>
         </div>
     )}
