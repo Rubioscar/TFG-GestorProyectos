@@ -58,89 +58,109 @@ const Home = ({match}) => {
     setShow(true);
   }
 
+  const cerrarSesion = () => {
+    localStorage.removeItem("userData");
+    history.push('/login')
+  }
+
   return (
     <div>
-      <Navbar bg="info" variant="dark">
-      <Navbar.Brand>
-        <i className="fas fa-project-diagram"></i>
-        &nbsp;
-        GPO
-      </Navbar.Brand>
-      <Nav className="mr-auto">
-      <NavDropdown title="Proyectos" id="collasible-nav-dropdown">
-      { proyectos.map((project, index) => ( 
-        <NavDropdown.Item key={index} onClick={() => selectProject(project.id)}>
-          {project.name}
-        </NavDropdown.Item> 
-        )) 
-      }
-      </NavDropdown>
-        <Button variant="outline-light" onClick={() => nuevo()}>Crear Proyecto</Button>
-      </Nav>
-      </Navbar>
-      <div className="d-flex wrapper">
-        {proyecSelect ? (
-        <div className="color border-right sidebar-wrapper">
-          <div className="sidebar-heading">
+      {user && Object.keys(user).length !==0 && (
+      <div>
+        <Navbar bg="info" variant="dark">
+        <Navbar.Brand>
+          <i className="fas fa-project-diagram"></i>
+          &nbsp;
+          GPO
+        </Navbar.Brand>
+        <Nav className="mr-auto">
+        <NavDropdown title="Proyectos" id="collasible-nav-dropdown">
+        { proyectos.map((project, index) => ( 
+          <NavDropdown.Item key={index} onClick={() => selectProject(project.id)}>
             {project.name}
-            &nbsp;
-            <span onClick={() => editar()}>
-              <i className="fas fa-pencil-alt"></i>
-            </span>  
-          </div>
-          <ListGroup>
-            <ListGroup.Item action className="color" onClick={() => {
-              history.push(`${match.url}/listView`);
-            }}>
-              <i className="fas fa-stream" />
-              &nbsp;
-              Dashboard
-            </ListGroup.Item>
-            <ListGroup.Item action className="color" onClick={() => {
-              history.push(`${match.url}/trelloView`);
-            }}>
-              <i className="fab fa-trello"></i>
-              &nbsp;
-              Overview
-            </ListGroup.Item>
-            <ListGroup.Item action className="color" onClick={() => {
-              history.push(`${match.url}/newIssue`);
-            }}>
-              <i className="fas fa-plus-square"></i>
-              &nbsp;
-              New Issue
-            </ListGroup.Item>
-            <ListGroup.Item action className="color" onClick={() => {
-              history.push(`${match.url}/wiki`);
-            }}>
-              <i className="fas fa-book-open"></i>
-              &nbsp;
-              Wiki
-            </ListGroup.Item>
-          </ListGroup>
-        </div> ) : null
+          </NavDropdown.Item> 
+          )) 
         }
-        <div className="page-content-wrapper">     
-          <PrivateRoute path={`${match.url}/trelloView`} component={TrelloView} />
-          <PrivateRoute path={`${match.url}/listView`} component={ListView} />
-          <PrivateRoute path={`${match.url}/newIssue`} component={NewIssue} />
-          <PrivateRoute path={`${match.url}/viewIssue/:id`} component={ViewIssue} />
-          <PrivateRoute path={`${match.url}/wiki`} component={WikiProject} />
+        </NavDropdown>
+          <Button variant="outline-light" onClick={() => nuevo()}>Crear Proyecto</Button>
+        </Nav>
+        <Nav style={{ marginRight: '80px'}}>
+        <i className="fas fa-user-circle fa-2x imagen"></i>
+        <NavDropdown title={user.username} id="collasible-nav-dropdown">
+          <NavDropdown.Item  onClick={() => cerrarSesion()}>
+            <span className="exit">
+              <i className="fas fa-sign-out-alt"></i>
+              Cerrar sesión
+            </span>
+          </NavDropdown.Item> 
+        </NavDropdown>
+        </Nav>
+        </Navbar>
+        <div className="d-flex wrapper">
+          {proyecSelect ? (
+          <div className="color border-right sidebar-wrapper">
+            <div className="sidebar-heading">
+              {project.name}
+              &nbsp;
+              <span onClick={() => editar()}>
+                <i className="fas fa-pencil-alt"></i>
+              </span>  
+            </div>
+            <ListGroup>
+              <ListGroup.Item action className="color" onClick={() => {
+                history.push(`${match.url}/listView`);
+              }}>
+                <i className="fas fa-stream" />
+                &nbsp;
+                Dashboard
+              </ListGroup.Item>
+              <ListGroup.Item action className="color" onClick={() => {
+                history.push(`${match.url}/trelloView`);
+              }}>
+                <i className="fab fa-trello"></i>
+                &nbsp;
+                Overview
+              </ListGroup.Item>
+              <ListGroup.Item action className="color" onClick={() => {
+                history.push(`${match.url}/newIssue`);
+              }}>
+                <i className="fas fa-plus-square"></i>
+                &nbsp;
+                New Issue
+              </ListGroup.Item>
+              <ListGroup.Item action className="color" onClick={() => {
+                history.push(`${match.url}/wiki`);
+              }}>
+                <i className="fas fa-book-open"></i>
+                &nbsp;
+                Wiki
+              </ListGroup.Item>
+            </ListGroup>
+          </div> ) : null
+          }
+          <div className="page-content-wrapper">     
+            <PrivateRoute path={`${match.url}/trelloView`} component={TrelloView} />
+            <PrivateRoute path={`${match.url}/listView`} component={ListView} />
+            <PrivateRoute path={`${match.url}/newIssue`} component={NewIssue} />
+            <PrivateRoute path={`${match.url}/viewIssue/:id`} component={ViewIssue} />
+            <PrivateRoute path={`${match.url}/wiki`} component={WikiProject} />
+          </div>
         </div>
-      </div>
-      {show && (
-        <CustomModal
-        title={edit ? "Editar Proyecto" : "Nuevo Proyecto"}
-        onOverlayClick={() => setShow(false)}
-        >
-          {edit ? 
-            <EditProject
-              onClose={() => setShow(false)}
-            /> :
-            <NewProject
+        {show && (
+          <CustomModal
+          title={edit ? "Editar Proyecto" : "Nuevo Proyecto"}
+          onOverlayClick={() => setShow(false)}
+          >
+            {edit ? 
+              <EditProject
                 onClose={() => setShow(false)}
-            /> }
-        </CustomModal>
+              /> :
+              <NewProject
+                  onClose={() => setShow(false)}
+              /> }
+          </CustomModal>
+        )}
+      </div>
     )}
     </div>
   );
