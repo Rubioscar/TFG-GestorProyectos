@@ -5,6 +5,7 @@ import SelectInput from "../../../../common/components/inputs/selectInput";
 import {statusDisponibles} from "../../../utils/workFLows/newIssue";
 import CKEditor from 'ckeditor4-react';
 import { files, issue } from "../../../api";
+import { email } from "../../../../common/api";
 import Button from "react-bootstrap/Button";
 import "../../../assets/scss/index.scss";
 import apiPath from "../../../../common/constants";
@@ -61,9 +62,17 @@ const handleAttachFIle =  async e => {
         archivos: issueData.archivos.map(e => e.id)
      }
 
-     console.log(objeto);
      const res = await issue.actualizar(data.id,objeto);
      if(res) {
+        const obj = {
+            title: objeto.title,
+            email: project.users.find(e => e.id === objeto.asignado).email,
+            project: project.name,
+            descripcion: objeto.descripcionCorta,
+            status: issueData.issue_status,
+            user: userData.username
+        }
+        email.send(obj);
         onClose();
         dispatch(getIssue(data.id));
      }
