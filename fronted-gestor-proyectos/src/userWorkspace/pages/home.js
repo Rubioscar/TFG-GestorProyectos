@@ -112,21 +112,21 @@ const Home = ({match}) => {
               }}>
                 <i className="fas fa-stream" />
                 &nbsp;
-                Dashboard
+                Lista
               </ListGroup.Item>
               <ListGroup.Item action className="color" onClick={() => {
                 history.push(`${match.url}/trelloView`);
               }}>
                 <i className="fab fa-trello"></i>
                 &nbsp;
-                Overview
+                Tablero
               </ListGroup.Item>
               <ListGroup.Item action className="color" onClick={() => {
                 history.push(`${match.url}/newIssue`);
               }}>
                 <i className="fas fa-plus-square"></i>
                 &nbsp;
-                New Issue
+                Nueva Issue
               </ListGroup.Item>
               <ListGroup.Item action className="color" onClick={() => {
                 history.push(`${match.url}/wiki`);
