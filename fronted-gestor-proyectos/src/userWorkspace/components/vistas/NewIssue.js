@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useMemo} from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {useState, useMemo} from "react";
+import { useSelector } from "react-redux";
 import SimpleInput from "../../../common/components/inputs/simpleInput"
 import SelectInput from "../../../common/components/inputs/selectInput";
 import {statusDisponibles} from "../../utils/workFLows/newIssue";
@@ -12,8 +12,6 @@ import "../../assets/scss/index.scss";
 import apiPath from "../../../common/constants";
 
 const NewIssue = ({match}) => {
-  const dispatch = useDispatch();
-  const issues = useSelector(state => state.issue.issues.issues);
   const status = useSelector(state => state.issue.status.status);
   const types = useSelector(state => state.issue.types.types);
   const project = useSelector(state => state.project.projects)
@@ -59,7 +57,6 @@ const handleAttachFIle =  async e => {
         archivos: file.map(e => e.id)
      }
 
-     console.log(data);
      const res = await issue.nuevo(data);
      if(res) {
         history.push('/home/trelloView')
@@ -205,7 +202,7 @@ const handleAttachFIle =  async e => {
                                 <i className="fas fa-file"></i> {e.name}
                                 </span>
                                 &nbsp;
-                                <a href={`${apiPath}${e.url}`} target="_blank">Visualizar</a>
+                                <a href={`${apiPath}${e.url}`} target="_blank" rel="noopener noreferrer">Visualizar</a>
                             </div>
                         ))
                     )}

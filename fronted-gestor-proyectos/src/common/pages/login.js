@@ -65,7 +65,10 @@ const Login = () => {
                 <p className="forgot-password text-right">
                   Forgot 
                   {' '}
-                  <a href="" onClick={() => setReset(true)}>password?</a>
+                  <a href="" onClick={(e) => {
+                     e.preventDefault();
+                     setReset(true)
+                    }}>password?</a>
                 </p>
               </form>
           ) : <Reset /> }

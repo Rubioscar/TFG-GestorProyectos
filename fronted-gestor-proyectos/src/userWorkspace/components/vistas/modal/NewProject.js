@@ -215,7 +215,7 @@ const handleAttachFIle =  async e => {
                                 <i className="fas fa-file"></i> {e.name}
                                 </span>
                                 &nbsp;
-                                <a href={`${apiPath}${e.url}`} target="_blank">Visualizar</a>
+                                <a href={`${apiPath}${e.url}`} target="_blank" rel="noopener noreferrer">Visualizar</a>
                                 &nbsp;
                                 <span onClick={() => deleteFile(e.id)}>
                                     <i className="fas fa-trash"></i>

@@ -9,6 +9,7 @@ import WikiProject from "../components/vistas/WikiProject";
 import NewProject from "../components/vistas/modal/NewProject";
 import EditProject from "../components/vistas/modal/EditProject";
 import ViewIssue from "../components/vistas/ViewIssue";
+import AdminView from "../components/vistas/admin/adminView";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -29,6 +30,7 @@ const Home = ({match}) => {
   const project = useSelector(state => state.project.projects);
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [adminPanel, setAdminPanel] = useState(false);
   const [proyectos, setProyectos] = useState([]);
 
   useEffect(() => {
@@ -58,6 +60,11 @@ const Home = ({match}) => {
     setShow(true);
   }
 
+  const admin = (e) => {
+    e.preventDefault();
+    setAdminPanel(true);
+  }
+
   const cerrarSesion = () => {
     localStorage.removeItem("userData");
     history.push('/login')
@@ -82,7 +89,10 @@ const Home = ({match}) => {
           )) 
         }
         </NavDropdown>
-          <Button variant="outline-light" onClick={() => nuevo()}>Crear Proyecto</Button>
+        {/*<Nav.Link href=" " onClick={(e) => admin(e)}>Admin</Nav.Link>*/}
+          {(user.role.type === "creator" || user.role.type === "admin") && (
+            <Button variant="outline-light" onClick={() => nuevo()}>Crear Proyecto</Button>
+          )}
         </Nav>
         <Nav style={{ marginRight: '80px'}}>
         <i className="fas fa-user-circle fa-2x imagen"></i>
@@ -96,56 +106,59 @@ const Home = ({match}) => {
         </NavDropdown>
         </Nav>
         </Navbar>
-        <div className="d-flex wrapper">
-          {proyecSelect ? (
-          <div className="color border-right sidebar-wrapper">
-            <div className="sidebar-heading">
-              {project.name}
-              &nbsp;
-              <span onClick={() => editar()}>
-                <i className="fas fa-pencil-alt"></i>
-              </span>  
+        {adminPanel ? <AdminView closepanel={() => setAdminPanel(false)} /> :
+          <div className="d-flex wrapper">
+            {proyecSelect ? (
+            <div className="color border-right sidebar-wrapper">
+              <div className="sidebar-heading">
+                {project.name}
+                &nbsp;
+                {(user.id === project.admin.id || user.role.type === "admin")&& (
+                  <span onClick={() => editar()}>
+                    <i className="fas fa-pencil-alt"></i>
+                  </span>
+                )}  
+              </div>
+              <ListGroup>
+                <ListGroup.Item action className="color" onClick={() => {
+                  history.push(`${match.url}/listView`);
+                }}>
+                  <i className="fas fa-stream" />
+                  &nbsp;
+                  Lista
+                </ListGroup.Item>
+                <ListGroup.Item action className="color" onClick={() => {
+                  history.push(`${match.url}/trelloView`);
+                }}>
+                  <i className="fab fa-trello"></i>
+                  &nbsp;
+                  Tablero
+                </ListGroup.Item>
+                <ListGroup.Item action className="color" onClick={() => {
+                  history.push(`${match.url}/newIssue`);
+                }}>
+                  <i className="fas fa-plus-square"></i>
+                  &nbsp;
+                  Nueva Issue
+                </ListGroup.Item>
+                <ListGroup.Item action className="color" onClick={() => {
+                  history.push(`${match.url}/wiki`);
+                }}>
+                  <i className="fas fa-book-open"></i>
+                  &nbsp;
+                  Wiki
+                </ListGroup.Item>
+              </ListGroup>
+            </div> ) : null
+            }
+            <div className="page-content-wrapper">     
+              <PrivateRoute path={`${match.url}/trelloView`} component={TrelloView} />
+              <PrivateRoute path={`${match.url}/listView`} component={ListView} />
+              <PrivateRoute path={`${match.url}/newIssue`} component={NewIssue} />
+              <PrivateRoute path={`${match.url}/viewIssue/:id`} component={ViewIssue} />
+              <PrivateRoute path={`${match.url}/wiki`} component={WikiProject} />
             </div>
-            <ListGroup>
-              <ListGroup.Item action className="color" onClick={() => {
-                history.push(`${match.url}/listView`);
-              }}>
-                <i className="fas fa-stream" />
-                &nbsp;
-                Lista
-              </ListGroup.Item>
-              <ListGroup.Item action className="color" onClick={() => {
-                history.push(`${match.url}/trelloView`);
-              }}>
-                <i className="fab fa-trello"></i>
-                &nbsp;
-                Tablero
-              </ListGroup.Item>
-              <ListGroup.Item action className="color" onClick={() => {
-                history.push(`${match.url}/newIssue`);
-              }}>
-                <i className="fas fa-plus-square"></i>
-                &nbsp;
-                Nueva Issue
-              </ListGroup.Item>
-              <ListGroup.Item action className="color" onClick={() => {
-                history.push(`${match.url}/wiki`);
-              }}>
-                <i className="fas fa-book-open"></i>
-                &nbsp;
-                Wiki
-              </ListGroup.Item>
-            </ListGroup>
-          </div> ) : null
-          }
-          <div className="page-content-wrapper">     
-            <PrivateRoute path={`${match.url}/trelloView`} component={TrelloView} />
-            <PrivateRoute path={`${match.url}/listView`} component={ListView} />
-            <PrivateRoute path={`${match.url}/newIssue`} component={NewIssue} />
-            <PrivateRoute path={`${match.url}/viewIssue/:id`} component={ViewIssue} />
-            <PrivateRoute path={`${match.url}/wiki`} component={WikiProject} />
-          </div>
-        </div>
+          </div> }
         {show && (
           <CustomModal
           title={edit ? "Editar Proyecto" : "Nuevo Proyecto"}

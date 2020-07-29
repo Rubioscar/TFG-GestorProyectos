@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from "react";
 import { useSelector } from "react-redux";
 import CKEditor from 'ckeditor4-react';
-import SelectInput from "../../../common/components/inputs/selectInput";
-import SimpleInput from "../../../common/components/inputs/simpleInput"
-import apiPath from "../../../common/constants";
+import apiPath from "../../../../common/constants";
 
-const WikiProject = () => {
+const AdminProjectView = () => {
     const project = useSelector(state => state.project.projects)
     const [ficheros, setFicheros] = useState([])
     const [tipo, setTipo] = useState("Todos")
@@ -52,24 +50,6 @@ const WikiProject = () => {
                     type="inline"
                 />
             </div>
-            <div className="filter">
-                <i className="fas fa-search"></i>
-                &nbsp;
-                <SelectInput
-                    id="tipo"
-                    value={tipo}
-                    label="Por tipo:"
-                    data={selectTipo}
-                    className="in"
-                    onChange={setTipo}
-                />
-                <SimpleInput
-                    value={name}
-                    onChange={setName}
-                    classInputName="in"
-                    label="Name:"
-                />
-            </div>
             <div className="list">
                 {ficheros.map((file, index) => (
                 <div key={index} className="fichero">
@@ -89,4 +69,4 @@ const WikiProject = () => {
     )
 }
 
-export default WikiProject;
+export default AdminProjectView;

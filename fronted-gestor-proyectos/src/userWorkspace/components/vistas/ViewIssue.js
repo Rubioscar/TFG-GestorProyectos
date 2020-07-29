@@ -3,12 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SimpleInput from "../../../common/components/inputs/simpleInput"
 import DateInput from "../../../common/components/inputs/dateInput";
 import CustomModal from "../../../common/components/modal/CustomModal";
-import {statusDisponibles} from "../../utils/workFLows/newIssue";
 import CKEditor from 'ckeditor4-react';
-import { files, issue } from "../../api";
-import Button from "react-bootstrap/Button";
-import Alert from 'react-bootstrap/Alert';
-import history from "../../../common/helper/history";
 import "../../assets/scss/index.scss";
 import apiPath from "../../../common/constants";
 import { getIssue }  from '../../actions/issue';

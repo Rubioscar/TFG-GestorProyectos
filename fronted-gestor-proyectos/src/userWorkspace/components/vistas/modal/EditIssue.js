@@ -122,7 +122,7 @@ const handleAttachFIle =  async e => {
         {issueData  && (
             <div className="main-form">
                 <div className="header">
-                    <h2>Crear una nueva issue para {project.name}</h2>
+                    <h2>Editar issue para {project.name}</h2>
                 </div>
                 <span className="title">Detalles</span>
                 <div className="form">
@@ -236,7 +236,7 @@ const handleAttachFIle =  async e => {
                                 <i className="fas fa-file"></i> {e.name}
                                 </span>
                                 &nbsp;
-                                <a href={`${apiPath}${e.url}`} target="_blank">Visualizar</a>
+                                <a href={`${apiPath}${e.url}`} target="_blank" rel="noopener noreferrer">Visualizar</a>
                             </div>
                         ))
                     )}
